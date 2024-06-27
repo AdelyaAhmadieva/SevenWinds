@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+
+    overflow-y: hidden;
+
+    > #root {
+        display: flex;
+        flex-direction: column;
+        height: inherit;
+        width: inherit;
+
+        > iframe {
+            height: 100%;
+            width: 100%;
+            border: unset;
+        }
+    }
+}
+.container{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}

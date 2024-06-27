@@ -1,0 +1,65 @@
+@import 'src/styles/vars.scss';
+.directoryTree {
+  color: $text-color;
+  font-family: $font;
+  max-width: 100%;
+  padding-left: 16px;
+  summary{
+    z-index: 2;
+  }
+  ul {
+    list-style: none;
+    li::after {
+      position: absolute;
+      left: -2.7em;
+      bottom: 0px;
+      border-left: 1px solid $directory-lines-color;
+      content: "";
+      width: 1em;
+      height: 100%;
+    }
+    li {
+      position: relative;
+      line-height: 4em;
+
+    }
+    li::before {
+      position: absolute;
+      left: -2.7em;
+      top: -30px; // rewrite - make var
+      border-left: 1px solid $directory-lines-color;
+      border-bottom: 1px solid $directory-lines-color;
+      content: "";
+      width: 1.9em;
+      height: calc(2em + 23px); // rewrite make var
+    }
+    li:last-child::after
+    {
+      display: none;
+    }
+  }
+
+  summary {
+    cursor: pointer;
+    list-style: none;
+    margin-left: -1em;
+    position: relative;
+  }
+
+  ul.root-item > li:before{
+    display: none;
+  }
+  ul.root-item > li:after{
+      display: none;
+    }
+
+
+
+
+
+
+
+
+
+
+}

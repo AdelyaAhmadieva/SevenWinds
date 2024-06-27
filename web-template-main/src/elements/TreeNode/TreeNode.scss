@@ -1,0 +1,26 @@
+@import 'src/styles/vars.scss';
+.node-container {
+  flex-direction: row;
+  height: 4em;
+  margin-top: -4em;
+  border-bottom: solid 1px $lines-color;
+  display: flex;
+  position: absolute;
+  width: calc(100% - 32px);
+  z-index: 1;
+
+}
+
+.node-content {
+  display: flex;
+  flex-direction: row;
+  margin-right: 32px;
+  justify-content: space-between;
+}
+
+.content-attribute-container{
+  display: flex;
+  width: 50vw;
+  flex-direction: row;
+  justify-content: space-between;
+}
