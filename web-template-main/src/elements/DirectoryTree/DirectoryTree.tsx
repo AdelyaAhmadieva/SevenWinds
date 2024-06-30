@@ -1,63 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './DirectoryTree.scss'
 import TreeNode from "../TreeNode/TreeNode";
-import DirectoryIcon from "../../images/DirectoryIcon";
-const DirectoryTree = () => {
+import { TreeNodeData } from '../../types';
 
-    function selectHandler(){
-        console.log("Selected directory tree");
-    }
+interface DirectoryTreeProps {
+    rows: TreeNodeData[];
+    onUpdateNode: (updatedNode: TreeNodeData) => void;
+}
 
+const DirectoryTree: React.FC<DirectoryTreeProps> = ({ rows, onUpdateNode }) => {
     return (
         <div className="directoryTree">
             <ul className="root-item">
-                <li>
-                    <details>
-                            <summary><DirectoryIcon/></summary>
-                            <TreeNode level={1}/> {/*Cодержание столбца*/}
-                        <ul> {/*Подстолбец*/}
-                            <li>
-                                <details>
-                                    <summary><DirectoryIcon/></summary>
-                                    <TreeNode level={2}/>
-                                    <ul>
-                                        <li>
-                                            <details>
-                                                <summary><DirectoryIcon/></summary>
-                                                <TreeNode level={3}/>
-                                            </details>
-                                        </li>
-                                    </ul>
-                                </details>
-                            </li>
-                            <li>
-                                <details>
-                                    <summary><DirectoryIcon/></summary>
-                                    <ul>
-                                        <li>
-                                            <details></details>
-                                        </li>
-                                    </ul>
-                                </details>
-                            </li>
-                            <li>
-                                <details>
-                                    <summary><DirectoryIcon/></summary>
-                                    <ul>
-                                        <li>
-                                            <details></details>
-                                        </li>
-                                    </ul>
-                                </details>
-                            </li>
-                        </ul>
-                    </details>
-                </li>
-                <li>
-                    <details>
-                        <summary>2 task</summary>
-                    </details>
-                </li>
+                {rows?.map((row) => (
+                    <TreeNode key={row.id} level={1} node={row} onUpdateNode={onUpdateNode} />
+                ))}
             </ul>
         </div>
     );

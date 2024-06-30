@@ -11,7 +11,7 @@
     list-style: none;
     li::after {
       position: absolute;
-      left: -2.7em;
+      left: -3.2em;
       bottom: 0px;
       border-left: 1px solid $directory-lines-color;
       content: "";
@@ -25,12 +25,12 @@
     }
     li::before {
       position: absolute;
-      left: -2.7em;
+      left: -3.2em;
       top: -30px; // rewrite - make var
       border-left: 1px solid $directory-lines-color;
       border-bottom: 1px solid $directory-lines-color;
       content: "";
-      width: 1.9em;
+      width: 2em;
       height: calc(2em + 23px); // rewrite make var
     }
     li:last-child::after
@@ -42,9 +42,10 @@
   summary {
     cursor: pointer;
     list-style: none;
-    margin-left: -1em;
+    margin-left: -1.5em;
     position: relative;
   }
+
 
   ul.root-item > li:before{
     display: none;
