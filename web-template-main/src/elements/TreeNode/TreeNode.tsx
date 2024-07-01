@@ -19,6 +19,8 @@ const TreeNode: React.FC<TreeNodeProps> = ({ node, level, onUpdateNode, onCreate
     const detailsRef = useRef<HTMLDetailsElement>(null);
     const formRef = useRef<HTMLDivElement>(null);
 
+
+
     useEffect(() => {
         setEditValues(node);
     }, [node]);
@@ -63,6 +65,11 @@ const TreeNode: React.FC<TreeNodeProps> = ({ node, level, onUpdateNode, onCreate
         if (detailsRef.current) {
             detailsRef.current.classList.remove('editing');
         }
+        if(Object.values(editValues).some(value => value === '')){
+            handleDoubleClick()
+        }
+
+
     };
 
 
@@ -181,7 +188,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ node, level, onUpdateNode, onCreate
                 {node.child && node.child.length > 0 && (
                     <ul className="child">
                         {node.child.map((child, index) => (
-                            <TreeNode node={child} level={level + 1} onUpdateNode={onUpdateNode} onCreateNode={onCreateNode} onDeleteNode={onDeleteNode}/>
+                            <TreeNode key={index} node={child} level={level + 1} onUpdateNode={onUpdateNode} onCreateNode={onCreateNode} onDeleteNode={onDeleteNode}/>
                         ))}
                     </ul>
                 )}
