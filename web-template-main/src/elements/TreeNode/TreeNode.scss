@@ -22,6 +22,7 @@ summary{
   .summary-images-container{
     display: flex;
     background-color: $lines-color;
+    align-items: center;
     width: 0;
     border-radius: 6px;
     &:hover{
@@ -61,6 +62,7 @@ input::-webkit-inner-spin-button {
 
 .directory-image-container{
   display: flex;
+  align-items: center;
 }
 .trash-image-container{
   display: none;
