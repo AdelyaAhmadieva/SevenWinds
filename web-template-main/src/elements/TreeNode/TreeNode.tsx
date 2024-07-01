@@ -9,10 +9,11 @@ interface TreeNodeProps {
     node: TreeNodeData;
     level: number;
     onUpdateNode: (updatedNode: TreeNodeData) => void;
-    onCreateNode: (parentNode: TreeNodeData) => void;
+    onCreateNode: (parentId: number) => void;
+    onDeleteNode: (nodeId: number) => void;
 }
 
-const TreeNode: React.FC<TreeNodeProps> = ({ node, level, onUpdateNode, onCreateNode }) => {
+const TreeNode: React.FC<TreeNodeProps> = ({ node, level, onUpdateNode, onCreateNode, onDeleteNode }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editValues, setEditValues] = useState<TreeNodeData>(node);
     const detailsRef = useRef<HTMLDetailsElement>(null);
@@ -47,8 +48,12 @@ const TreeNode: React.FC<TreeNodeProps> = ({ node, level, onUpdateNode, onCreate
     };
 
     const handleCreateChild = () => {
-        onCreateNode(node);
+        onCreateNode(node.id);
     };
+
+    const handleDeleteNode = () =>{
+        onDeleteNode(node.id)
+    }
 
     const saveAndClose = () => {
         if (JSON.stringify(editValues) !== JSON.stringify(node)) {
@@ -63,7 +68,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ node, level, onUpdateNode, onCreate
 
     const id = localStorage.getItem("id")
     const clickTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
-    function handleClickEvent  (id:number) {
+    function handleClickEvent  () {
         if (clickTimeoutRef.current) {
             clearTimeout(clickTimeoutRef.current);
             clickTimeoutRef.current = null;
@@ -82,13 +87,13 @@ const TreeNode: React.FC<TreeNodeProps> = ({ node, level, onUpdateNode, onCreate
                 <summary>
                     <div className="summary-images-container">
                         <div className="directory-image-container">
-                            <button onClick={() => handleClickEvent(1)}>
+                            <button onClick={() => handleClickEvent()}>
                                 <DirectoryIcon/>
                             </button>
 
                         </div>
                         <div className="trash-image-container">
-                            <button>
+                            <button onClick={() => handleDeleteNode()}>
                                 <TrashFillIcon/>
                             </button>
                         </div>
@@ -97,8 +102,8 @@ const TreeNode: React.FC<TreeNodeProps> = ({ node, level, onUpdateNode, onCreate
 
 
                 <div className="node-container" style={{
-                    marginLeft: `calc(-1 * (2em * ${level} + (8px * ${level})))`,
-                    width: `calc(100% + ${level} * (2em + 8px) - 32px)`
+                    marginLeft: `calc(-1 * (2em * ${level} + (8px * ${level} ) - (1em * ${level})))`,
+                    width: `calc(100% + ${level} * (1em + 8px) - 32px)`
                 }}>
                     <div onClick={(e) => e.stopPropagation()} ref={formRef}
                          className='node-content' style={{marginLeft: `calc((2em - 32px) * ${level}  + (32px * 4.5) )`}}>
@@ -106,42 +111,54 @@ const TreeNode: React.FC<TreeNodeProps> = ({ node, level, onUpdateNode, onCreate
                         {isEditing ?
                             (<>
                                 <div>
-                                    <input value={editValues.rowName}
-                                           onChange={handleChange}
-                                           onBlur={handleBlur}
-                                           autoFocus/>
+                                    <input type="text"
+                                            required={true}
+                                        name="rowName"
+                                        value={editValues.rowName}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                           maxLength={30}
+                                        autoFocus/>
                                 </div>
                                 <div className="content-attribute-container">
                                     <ColumnElement><input
-                                        type="text"
+                                        type="number"
+                                        required={true}
                                         name="salary"
                                         value={editValues.salary}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
+                                        maxLength={30}
                                         autoFocus
                                     /></ColumnElement>
                                     <ColumnElement> <input
-                                        type="text"
+                                        type="number"
+                                        required={true}
                                         name="equipmentCosts"
                                         value={editValues.equipmentCosts}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
+                                        maxLength={30}
                                         autoFocus
                                     /></ColumnElement>
                                     <ColumnElement> <input
-                                        type="text"
+                                        type="number"
+                                        required={true}
                                         name="overheads"
                                         value={editValues.overheads}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
+                                        maxLength={30}
                                         autoFocus
                                     /></ColumnElement>
                                     <ColumnElement><input
-                                        type="text"
+                                        type="number"
+                                        required={true}
                                         name="estimatedProfit"
                                         value={editValues.estimatedProfit}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
+                                        maxLength={30}
                                         autoFocus
                                     /></ColumnElement>
                                 </div>
@@ -164,7 +181,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ node, level, onUpdateNode, onCreate
                 {node.child && node.child.length > 0 && (
                     <ul className="child">
                         {node.child.map((child, index) => (
-                            <TreeNode node={child} level={level + 1} onUpdateNode={onUpdateNode} onCreateNode={onCreateNode}/>
+                            <TreeNode node={child} level={level + 1} onUpdateNode={onUpdateNode} onCreateNode={onCreateNode} onDeleteNode={onDeleteNode}/>
                         ))}
                     </ul>
                 )}
@@ -175,14 +192,4 @@ const TreeNode: React.FC<TreeNodeProps> = ({ node, level, onUpdateNode, onCreate
     );
 };
 
-{/*
-                (
-                    <>
-                        <button onClick={() => createFirstRowHandler()}>
-                            Create First Row
-                        </button>
-                    </>
-                )}
-            */
-}
 export default TreeNode;

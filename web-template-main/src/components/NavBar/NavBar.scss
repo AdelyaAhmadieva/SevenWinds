@@ -3,5 +3,27 @@
   width: 234px;
   height: 100%;
   background-color: $background-light;
-  border: solid 1px rgba(161,161,170,0.5) ;
+  border: solid 1.5px $lines-color ;
+}
+
+.nav-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 12px 12px 24px;
+  color: #A1A1AA;
+  border-bottom: solid 1.5px $lines-color;
+  font-family: $font;
+  div{
+    display: flex;
+    flex-direction: column;
+  }
+
+}
+
+.main-text{
+  font-size: 16px;
+}
+.secondary-text{
+  font-size: 12px;
 }

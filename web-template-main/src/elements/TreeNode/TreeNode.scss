@@ -3,7 +3,7 @@
   flex-direction: row;
   height: 4em;
   margin-top: -4em;
-  border-bottom: solid 1px $lines-color;
+  border-bottom: solid 1.5px rgba(65, 65, 68, 0.7);
   display: flex;
   position: absolute;
   width: calc(100% - 32px);
@@ -21,7 +21,7 @@ summary{
   justify-content: space-between;
   .summary-images-container{
     display: flex;
-    background-color: #414144;
+    background-color: $lines-color;
     width: 0;
     border-radius: 6px;
     &:hover{
@@ -43,6 +43,21 @@ summary{
   }
 }
 
+input{
+  height: 40%;
+  width: 100%;
+  padding-left: 12px;
+  border: solid 1.5px $lines-color;
+  background-color: $background-dark;
+  color: $text-color;
+  border-radius: 6px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 
 .directory-image-container{
   display: flex;
@@ -59,6 +74,11 @@ summary{
   margin-right: 32px;
   justify-content: space-between;
 
+  div{
+    display: flex;
+    align-items: center;
+  }
+
 }
 
 .content-attribute-container{
@@ -66,5 +86,4 @@ summary{
   width: 50vw;
   flex-direction: row;
   justify-content: space-between;
-
 }

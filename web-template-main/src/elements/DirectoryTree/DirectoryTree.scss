@@ -1,41 +1,46 @@
-@import 'src/styles/vars.scss';
+@import "src/styles/vars.scss";
 .directoryTree {
   color: $text-color;
   font-family: $font;
   max-width: 100%;
   padding-left: 16px;
-  summary{
+
+  summary {
     z-index: 2;
   }
+
   ul {
     list-style: none;
-    li::after {
-      position: absolute;
-      left: -3.2em;
-      bottom: 0px;
-      border-left: 1px solid $directory-lines-color;
-      content: "";
-      width: 1em;
-      height: 100%;
-    }
+
     li {
       position: relative;
       line-height: 4em;
+      margin-left: -1em;
 
-    }
-    li::before {
-      position: absolute;
-      left: -3.2em;
-      top: -30px; // rewrite - make var
-      border-left: 1px solid $directory-lines-color;
-      border-bottom: 1px solid $directory-lines-color;
-      content: "";
-      width: 2em;
-      height: calc(2em + 23px); // rewrite make var
-    }
-    li:last-child::after
-    {
-      display: none;
+      &::after {
+        position: absolute;
+        left: -2em;  // Уменьшите значение отступа слева
+        bottom: 0px;
+        border-left: 1.5px solid $directory-lines-color;
+        content: "";
+        width: 0.5em;  // Уменьшите ширину линии
+        height: 100%;
+      }
+
+      &::before {
+        position: absolute;
+        left: -2em;  // Уменьшите значение отступа слева
+        top: -30px; // можно сделать переменной
+        border-left: 1.5px solid $directory-lines-color;
+        border-bottom: 1.5px solid $directory-lines-color;
+        content: "";
+        width: 1em;  // Уменьшите ширину линии
+        height: calc(2em + 23px); // можно сделать переменной
+      }
+
+      &:last-child::after {
+        display: none;
+      }
     }
   }
 
@@ -46,29 +51,20 @@
     position: relative;
   }
 
-
-  ul.root-item > li:before{
+  ul.root-item > li::before {
     display: none;
   }
-  ul.root-item > li:after{
-      display: none;
-    }
 
-  ul.child > summary{
+  ul.root-item > li::after {
+    display: none;
+  }
+
+  ul.child > summary {
     position: absolute;
   }
 
-  .child{
+  .child {
     display: flex;
     flex-direction: column;
   }
-
-
-
-
-
-
-
-
-
 }

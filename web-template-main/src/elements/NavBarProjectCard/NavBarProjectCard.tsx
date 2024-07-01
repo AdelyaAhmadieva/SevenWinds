@@ -1,19 +1,15 @@
-import React from 'react';
-
-const NavBarProjectCard = () => {
+import React, {ReactNode} from 'react';
+import './NavBarProjectCard.scss'
+import ProjectItemIcon from "../../images/ProjectItemIcon";
+interface Props {
+    children: React.ReactNode;
+}
+const NavBarProjectCard: React.FC<Props> = ({children}) => {
     return (
-        <ul>
-            <div className="card">
-                Проект
-            </div>
-            <li>
-                папка 1
-            </li>
-            <li>
-                папка 2
-            </li>
-        </ul>
-
+       <div className="card">
+            <ProjectItemIcon/>
+            <span>{children}</span>
+       </div>
 
     );
 };
