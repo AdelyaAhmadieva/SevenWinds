@@ -3,7 +3,7 @@ import "./MainBlock.scss"
 import DirectoryTree from "../../elements/DirectoryTree/DirectoryTree";
 import ColumnElement from "../../elements/ColumnElement/ColumnElement";
 import { TreeNodeData } from '../../types';
-import {useGetDataQuery, useUpdateNodeMutation} from "../../api/entityApi";
+import {useCreateNodeMutation, useGetDataQuery, useUpdateNodeMutation} from "../../api/entityApi";
 
 
 const MainBlock:React.FC = () => {
@@ -14,6 +14,7 @@ const MainBlock:React.FC = () => {
     const { data: nodes, error, isLoading } = useGetDataQuery();
     console.log(nodes);
     const [updateNode] = useUpdateNodeMutation();
+    const [createNode] = useCreateNodeMutation();
 
     const handleUpdateNode = async (updatedNode: TreeNodeData) => {
         try {
@@ -21,6 +22,29 @@ const MainBlock:React.FC = () => {
             console.log('Node updated successfully');
         } catch (error) {
             console.error('Failed to update node:', error);
+        }
+    };
+
+    const handleCreateNode = async (parentNode: TreeNodeData) => {
+        const newNode = {
+            equipmentCosts: 0,
+            estimatedProfit: 0,
+            machineOperatorSalary: 0,
+            mainCosts: 0,
+            materials: 0,
+            mimExploitation: 0,
+            overheads: 0,
+            parentId: parentNode.id,
+            rowName: "New Node",
+            salary: 0,
+            supportCosts: 0,
+        };
+
+        try {
+            const createdNode = await createNode(newNode).unwrap();
+            console.log('Node created successfully', createdNode);
+        } catch (error) {
+            console.error('Failed to create node:', error);
         }
     };
 
@@ -44,8 +68,9 @@ const MainBlock:React.FC = () => {
                     <ColumnElement>Сметная прибыль</ColumnElement>
                 </div>
             </div>
-
-            <DirectoryTree rows={nodes} onUpdateNode={handleUpdateNode} />
+            {nodes !== null && (
+                <DirectoryTree rows={nodes} onUpdateNode={handleUpdateNode} onCreateNode={handleCreateNode} />
+            )}
         </div>
 
     );

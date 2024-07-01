@@ -23,7 +23,18 @@ export const api = createApi({
             }),
 
         }),
+        createNode: builder.mutation<TreeNodeData[], Partial<TreeNodeData>>({
+            query: (node) => ({
+                url: `/v1/outlay-rows/entity/${id}/row/create`,
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json',
+                },
+                body: node,
+            }),
+
+        }),
     }),
 });
 
-export const { useGetDataQuery, useUpdateNodeMutation } = api;
+export const { useGetDataQuery, useUpdateNodeMutation, useCreateNodeMutation } = api;

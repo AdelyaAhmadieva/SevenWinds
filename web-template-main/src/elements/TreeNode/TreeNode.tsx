@@ -9,9 +9,10 @@ interface TreeNodeProps {
     node: TreeNodeData;
     level: number;
     onUpdateNode: (updatedNode: TreeNodeData) => void;
+    onCreateNode: (parentNode: TreeNodeData) => void;
 }
 
-const TreeNode: React.FC<TreeNodeProps> = ({ node, level, onUpdateNode }) => {
+const TreeNode: React.FC<TreeNodeProps> = ({ node, level, onUpdateNode, onCreateNode }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editValues, setEditValues] = useState<TreeNodeData>(node);
     const detailsRef = useRef<HTMLDetailsElement>(null);
@@ -45,6 +46,10 @@ const TreeNode: React.FC<TreeNodeProps> = ({ node, level, onUpdateNode }) => {
         }, 0);
     };
 
+    const handleCreateChild = () => {
+        onCreateNode(node);
+    };
+
     const saveAndClose = () => {
         if (JSON.stringify(editValues) !== JSON.stringify(node)) {
             onUpdateNode(editValues);
@@ -65,7 +70,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ node, level, onUpdateNode }) => {
             handleDoubleClick();
         } else {
             clickTimeoutRef.current = setTimeout(() => {
-               console.log("Holera!")
+               handleCreateChild()
                 clickTimeoutRef.current = null;
             }, 200);
         }
@@ -156,6 +161,13 @@ const TreeNode: React.FC<TreeNodeProps> = ({ node, level, onUpdateNode }) => {
                         }
                     </div>
                 </div>
+                {node.child && node.child.length > 0 && (
+                    <ul className="child">
+                        {node.child.map((child, index) => (
+                            <TreeNode node={child} level={level + 1} onUpdateNode={onUpdateNode} onCreateNode={onCreateNode}/>
+                        ))}
+                    </ul>
+                )}
             </details>
         </li>
 

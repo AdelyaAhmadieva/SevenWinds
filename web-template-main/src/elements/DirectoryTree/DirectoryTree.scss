@@ -54,6 +54,14 @@
       display: none;
     }
 
+  ul.child > summary{
+    position: absolute;
+  }
+
+  .child{
+    display: flex;
+    flex-direction: column;
+  }
 
 
 
